@@ -1,7 +1,8 @@
 require('dotenv').config();
 const constants = require('./constants');
 const axios = require('axios');
-const fs = require('fs-extra');
+const fs = require('fs');
+const path = require('path');
 
 const randimg = {
   baseUrl: 'https://api.unsplash.com/photos/random',
@@ -61,6 +62,17 @@ const randimg = {
     return { promises: await Promise.all(promises), fileNames };
   },
 
+  saveImages(images, dir) {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
+    images.fileNames.map((fileName, i) => {
+      images.promises[i].data.pipe(
+        fs.createWriteStream(path.join(dir, fileName)),
+      );
+    });
+  },
   async eval(cli) {
     if (!this.validateArguments(cli.input[0], cli.flags)) {
       process.exit(1);
@@ -69,9 +81,7 @@ const randimg = {
     try {
       const res = await this.getImageUrls(cli.flags);
       const images = await this.downloadImages(res.data);
-      images.fileNames.map((fileName, i) => {
-        images.promises[i].data.pipe(fs.createWriteStream(fileName));
-      });
+      this.saveImages(images, path.join(process.cwd(), cli.input[0]));
     } catch (error) {
       console.log(error);
       process.exit(1);
