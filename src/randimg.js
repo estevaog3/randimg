@@ -1,6 +1,7 @@
 require('dotenv').config();
 const constants = require('./constants');
 const axios = require('axios');
+const fs = require('fs-extra');
 
 const randimg = {
   baseUrl: 'https://api.unsplash.com/photos/random?',
@@ -45,9 +46,19 @@ const randimg = {
   },
 
   async downloadImages(images) {
+    let promises = [];
+    let fileNames = [];
     for (let image of images) {
-      console.log('downloading from', image.urls.custom);
+      const url = image.urls.custom;
+      promises.push(axios.get(url, { responseType: 'stream' }));
+      const fileName = image.alt_description
+        ? image.alt_description
+        : image.description
+        ? image.description
+        : image.id;
+      fileNames.push(`${fileName}.jpg`);
     }
+    return { promises: await Promise.all(promises), fileNames };
   },
 
   async eval(cli) {
@@ -57,13 +68,14 @@ const randimg = {
 
     try {
       const res = await this.getImageUrls(cli.flags);
-      await this.downloadImages(res.data);
+      const images = await this.downloadImages(res.data);
+      images.fileNames.map((fileName, i) => {
+        images.promises[i].data.pipe(fs.createWriteStream(fileName));
+      });
     } catch (error) {
       console.log(error);
       process.exit(1);
     }
-
-    // download and save each the images
   },
 };
 
