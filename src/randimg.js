@@ -4,7 +4,7 @@ const axios = require('axios');
 const fs = require('fs-extra');
 
 const randimg = {
-  baseUrl: 'https://api.unsplash.com/photos/random?',
+  baseUrl: 'https://api.unsplash.com/photos/random',
   validateArguments(dest, flags) {
     if (!dest) {
       console.log('Error: Must specify destination directory');
