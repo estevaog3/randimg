@@ -1,0 +1,17 @@
+{
+  "name": "randimg",
+  "version": "1.0.0",
+  "description": "Download random images from unsplash",
+  "main": "src/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "meow": "^7.0.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.0.0",
+    "prettier": "^2.0.5"
+  }
+}
