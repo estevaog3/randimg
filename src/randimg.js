@@ -64,7 +64,7 @@ const randimg = {
 
   saveImages(images, dir) {
     if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+      throw new Error(`Directory ${dir} does not exists`);
     }
 
     images.fileNames.map((fileName, i) => {
@@ -81,9 +81,9 @@ const randimg = {
     try {
       const res = await this.getImageUrls(cli.flags);
       const images = await this.downloadImages(res.data);
-      this.saveImages(images, path.join(process.cwd(), cli.input[0]));
+      this.saveImages(images, path.resolve(process.cwd(), cli.input[0]));
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       process.exit(1);
     }
   },
