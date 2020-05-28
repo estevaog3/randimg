@@ -9,7 +9,6 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
-    "dotenv": "^8.2.0",
     "meow": "^7.0.1"
   },
   "devDependencies": {

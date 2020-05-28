@@ -1,8 +1,8 @@
-require('dotenv').config();
 const constants = require('./constants');
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const { ACCESS_KEY } = require('./secret/unsplash');
 
 const randimg = {
   baseUrl: 'https://api.unsplash.com/photos/random',
@@ -40,7 +40,7 @@ const randimg = {
         h: height,
       },
       headers: {
-        Authorization: `Client-ID ${process.env.ACCESS_KEY}`,
+        Authorization: `Client-ID ${ACCESS_KEY}`,
       },
     });
     return res;
