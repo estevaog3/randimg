@@ -6,6 +6,10 @@
   "bin": {
     "randimg": "src/index.js"
   },
+  "scripts": {
+    "execute": "node src/index.js",
+    "build": "npm uninstall -g randimg; npm install -g"
+  },
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
