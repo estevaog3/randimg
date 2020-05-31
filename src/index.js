@@ -14,8 +14,8 @@ const cli = meow(
       --number, -n  number of images to download (default: 1)
  
     EXAMPLE
+      Downloads 10 random 'funny' images into ~/Pictures directory:
       $ randimg ~/Pictures -q funny -n 10
-      Download 10 random 'funny' images
 `,
   {
     flags: {
