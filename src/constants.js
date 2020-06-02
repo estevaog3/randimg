@@ -3,4 +3,5 @@ module.exports = {
   DEFAULT_SIZE: '1920x1080',
   DEFAULT_QUERY: 'wallpaper',
   DEFAULT_NUMBER: 1,
+  DEFAULT_SHOW_NAMES: false,
 };

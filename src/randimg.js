@@ -62,7 +62,7 @@ const randimg = {
     return { promises: await Promise.all(promises), fileNames };
   },
 
-  saveImages(images, dir) {
+  saveImages(images, dir, { showNames }) {
     if (!fs.existsSync(dir)) {
       throw new Error(`Directory ${dir} does not exists`);
     }
@@ -71,6 +71,9 @@ const randimg = {
       images.promises[i].data.pipe(
         fs.createWriteStream(path.join(dir, fileName)),
       );
+      if (showNames) {
+        console.log(fileName);
+      }
     });
   },
   async eval(cli) {
@@ -81,7 +84,9 @@ const randimg = {
     try {
       const res = await this.getImageUrls(cli.flags);
       const images = await this.downloadImages(res.data);
-      this.saveImages(images, path.resolve(process.cwd(), cli.input[0]));
+      this.saveImages(images, path.resolve(process.cwd(), cli.input[0]), {
+        showNames: cli.flags.showNames,
+      });
     } catch (error) {
       console.log(error.message);
       process.exit(1);
