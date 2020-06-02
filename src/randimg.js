@@ -1,4 +1,4 @@
-const constants = require('./constants');
+const { MAXIMUM_NUMBER } = require('./constants');
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
@@ -18,8 +18,8 @@ const randimg = {
       );
       return false;
     }
-    if (!flags.number > constants.MAXIMUM_NUMBER) {
-      console.log(`Error: invalid number (max: ${constants.MAXIMUM_NUMBER})`);
+    if (!flags.number > MAXIMUM_NUMBER) {
+      console.log(`Error: invalid number (max: ${MAXIMUM_NUMBER})`);
       return false;
     }
     if (!flags.size.match('^[0-9]+x[0-9]+$')) {

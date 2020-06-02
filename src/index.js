@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 const meow = require('meow');
 const randimg = require('./randimg');
-const constants = require('./constants');
+const {
+  DEFAULT_NUMBER,
+  DEFAULT_QUERY,
+  DEFAULT_SHOW_NAMES,
+  DEFAULT_SIZE,
+} = require('./constants');
 
 const cli = meow(
   `
@@ -23,21 +28,21 @@ const cli = meow(
       query: {
         type: 'string',
         alias: 'q',
-        default: constants.DEFAULT_QUERY,
+        default: DEFAULT_QUERY,
       },
       size: {
         type: 'string',
         alias: 's',
-        default: constants.DEFAULT_SIZE,
+        default: DEFAULT_SIZE,
       },
       number: {
         type: 'number',
         alias: 'n',
-        default: constants.DEFAULT_NUMBER,
+        default: DEFAULT_NUMBER,
       },
       showNames: {
         type: 'boolean',
-        default: constants.DEFAULT_SHOW_NAMES,
+        default: DEFAULT_SHOW_NAMES,
       },
     },
   },
