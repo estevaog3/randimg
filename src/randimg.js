@@ -57,11 +57,12 @@ const randimg = {
     for (let image of images) {
       const url = image.urls.custom;
       promises.push(axios.get(url, { responseType: 'stream' }));
-      const fileName = image.alt_description
+      let fileName = image.alt_description
         ? image.alt_description
         : image.description
         ? image.description
         : image.id;
+      fileName = fileName.split(' ').join('-');
       fileNames.push(`${fileName}.jpg`);
     }
     return { promises: await Promise.all(promises), fileNames };
