@@ -4,6 +4,11 @@ const fs = require('fs');
 const path = require('path');
 const { ACCESS_KEY } = require('./secret/unsplash');
 
+if (!ACCESS_KEY) {
+  console.log('Error: ACCESS_KEY not found');
+  process.exit(1);
+}
+
 const randimg = {
   baseUrl: 'https://api.unsplash.com/photos/random',
   validateArguments(dest, flags) {
@@ -76,6 +81,7 @@ const randimg = {
       }
     });
   },
+
   async eval(cli) {
     if (!this.validateArguments(cli.input[0], cli.flags)) {
       process.exit(1);
