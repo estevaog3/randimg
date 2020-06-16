@@ -62,7 +62,7 @@ const randimg = {
         : image.description
         ? image.description
         : image.id;
-      fileName = fileName.split(' ').join('-');
+      fileName = fileName.split(' ').join('-').replaceAll('/', '');
       fileNames.push(`${fileName}.jpg`);
     }
     return { promises: await Promise.all(promises), fileNames };
