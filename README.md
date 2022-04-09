@@ -42,4 +42,4 @@ mkdir src/secret && \
 echo "module.exports.ACCESS_KEY = '*****';" > src/secret/unsplash.js
 ```
 
-4. That's it! You can now install it globally with `yarn build` or execute it without installing: `yarn execute`
+4. That's it! You can now install it globally with `yarn build` or execute it without installing: `yarn start`
