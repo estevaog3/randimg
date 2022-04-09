@@ -27,22 +27,20 @@ const randimg = {
       console.log(`Error: invalid number (max: ${MAXIMUM_NUMBER})`);
       return false;
     }
-    if (!flags.size.match('^[0-9]+x[0-9]+$')) {
-      console.log('Error: invalid size format (example of usage: -s 1080x720)');
+    if (!flags.size.match('full|regular|small')) {
+      console.log(
+        'Error: invalid size, it should be either full, regular or small',
+      );
       return false;
     }
     return true;
   },
 
-  async getImageUrls({ query, number, size }) {
-    let [width, height] = size.match(/[0-9]+/g);
-
+  async getImageUrls({ query, number }) {
     const res = await axios.get(this.baseUrl, {
       params: {
         query: query,
         count: number,
-        w: width,
-        h: height,
       },
       headers: {
         Authorization: `Client-ID ${ACCESS_KEY}`,
@@ -51,11 +49,11 @@ const randimg = {
     return res;
   },
 
-  async downloadImages(images) {
+  async downloadImages(images, size) {
     let promises = [];
     let fileNames = [];
     for (let image of images) {
-      const url = image.urls.full;
+      const url = image.urls[size];
       promises.push(axios.get(url, { responseType: 'stream' }));
       let fileName = image.alt_description
         ? image.alt_description
@@ -90,7 +88,7 @@ const randimg = {
 
     try {
       const res = await this.getImageUrls(cli.flags);
-      const images = await this.downloadImages(res.data);
+      const images = await this.downloadImages(res.data, cli.flags.size);
       this.saveImages(images, path.resolve(process.cwd(), cli.input[0]), {
         showNames: cli.flags.showNames,
       });

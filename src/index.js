@@ -15,7 +15,7 @@ const cli = meow(
  
     OPTIONS
       --query, -q  download random image according to query (default: wallpaper)
-      --size, -s   image dimensions (width and height) in this format: 400x300 (default: 1920x1080) 
+      --size, -s   image size: full, regular or small (default: full) 
       --number, -n  number of images to download (default: 1)
       --show-names  show file names of downloaded images (default is to don't show it)
  
