@@ -38,8 +38,8 @@ yarn install
 3. Copy your unsplash app's `ACCESS_KEY` and replace `*****` with it in this command:
 
 ```
-mkdir src/secrets && \
-echo "module.exports.ACCESS_KEY = '*****';" > src/secrets/unsplash.js
+mkdir src/secret && \
+echo "module.exports.ACCESS_KEY = '*****';" > src/secret/unsplash.js
 ```
 
 4. That's it! You can now install it globally with `yarn build` or execute it without installing: `yarn execute`
